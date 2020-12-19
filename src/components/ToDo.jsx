@@ -82,7 +82,7 @@ export const ToDo = () => {
     }
 
     return (
-        <Card title={'todo-list (Unchecked:' + countUnchecked() + ')'}>
+        <Card title={'Items unchecked:' + countUnchecked() + ')'}>
             <ToDoForm onSubmit={onSubmit} onRemoveAll={onRemoveAll}/>
             {
                renderItems(todos)
