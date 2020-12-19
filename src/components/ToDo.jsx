@@ -47,10 +47,16 @@ export const ToDo = () => {
     }
     
     const onSubmit = (name, description) => {
-        if (name == null || description == null || name.length < 3 || description.length < 3 || name[0] != name[0].toUpperCase()) {
-            alert("Length of the field shouldn't be less than 3 characters. Title should start with a capital letter");
+        if (name == null || description == null){
+            alert("Fill both Name and Description fields");
         }
-        else {
+        else if (name.length < 3 || description.length < 3){
+            alert("Length of Name and Description should be more than 2");
+        }
+        else if (name[0] != name[0].toUpperCase()){
+            alert("Title should begin with Capital letter");
+        }
+        else{
             const todo = {
                 id: ids,
                 name,
@@ -62,6 +68,7 @@ export const ToDo = () => {
             setTodos([...todos, todo]);
             setIds(ids + 1);
         }
+
     }
 
     const renderItems = (todos) => {
