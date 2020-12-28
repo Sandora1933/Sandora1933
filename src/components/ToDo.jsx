@@ -55,7 +55,7 @@ export const ToDo = () => {
 
         //If not out of bounds -> make axiuos [DELETE] http request
         if (index !== -1){
-            axious.delete(`https://api/todoist.com/rest/v1/tasks/${id}`, config);
+            axios.delete(`https://api/todoist.com/rest/v1/tasks/${id}`, config);
         }
     }
 
