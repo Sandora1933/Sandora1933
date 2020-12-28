@@ -57,6 +57,8 @@ export const ToDo = () => {
         if (index !== -1){
             axios.delete(`https://api/todoist.com/rest/v1/tasks/${id}`, config);
         }
+
+        alert(`Task : ${id} was deleted`);
     }
 
     const onRemove = (id) => {
