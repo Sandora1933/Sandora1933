@@ -1,7 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Card, Checkbox, Button, Divider } from 'antd';
 import { ToDoItem } from './ToDoItem';
 import { ToDoForm } from './ToDoForm';
+import axios from 'axios';
+
+//Declaring token from todoist.com/prefs/integrations
+const myToken = 'a38ac3087226eeb2fc515288f1311ca0f74672c6';
+const config = {
+    headers: { Authorization: `Bearer ${myToken}` }
+  };
 
 export const ToDo = () => {
     const [todos, setTodos] = useState([
@@ -11,6 +18,11 @@ export const ToDo = () => {
          date: new Date().toLocaleString().slice(0,17).replace(/\//g,'.').replace(/,/g, ' -'),  checked: false}
     ]);
 
+    //Using side-effect hook from React to perform asynchronious receive of todoist state 
+    useEffect(async () => {
+        const res = await axios.get(`https://api.todoist.com/rest/v1/tasks`, config);
+    });
+
     const [ids, setIds] = useState(10);
 
     const onCheck = (id) => {
@@ -18,6 +30,10 @@ export const ToDo = () => {
         const todo = todos[index];
 
         todo.checked = !todo.checked;
+
+        //Using AxiousJs library we are performing http request [POST] for task close 
+        axios.post(`https://api.todoist.com/rest/v1/tasks/${id}/close`, todo, config);
+
         setTodos([...todos]);
     }
 
@@ -33,9 +49,22 @@ export const ToDo = () => {
         return count;
     }
 
+    //Function of deleting task by id
+    const onDelete = (id) => {
+        const index = todos.findIndex(todo => todo.id === id);
+
+        //If not out of bounds -> make axiuos [DELETE] http request
+        if (index !== -1){
+            axious.delete(`https://api/todoist.com/rest/v1/tasks/${id}`, config);
+        }
+    }
+
     const onRemove = (id) => {
         const index = todos.findIndex(todo => todo.id === id);
         
+        //Calling function for delete
+        onDelete(id);
+
         todos.splice(index, 1);
         setTodos([...todos]);
     }
