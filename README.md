@@ -1,4 +1,4 @@
-## Aboout me
+## About me
 
 Master’s student in Computational Modeling and Simulation with a focus on Applied AI and Large Language Models.
 Around three years of experience as a Software Developer (Android, .NET) and one year as a Student Research Assistant, working with LLM APIs, AI agents, RAG pipelines, and LLM evaluation.
